@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: me-add-one-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: hostpath
+  resources:
+    requests:
+      storage: 1Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: me-add-one-deployment
+  labels:
+    app: me-add-one
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: me-add-one
+  template:
+    metadata:
+      labels:
+        app: me-add-one
+    spec:
+      volumes:
+        - name: me-add-one-volume
+          persistentVolumeClaim:
+            claimName: me-add-one-pvc
+      containers:
+      - name: me-add-one-main
+        image: me-add-one:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5011
+        volumeMounts:
+        - mountPath: "/maodata"
+          name: me-add-one-volume
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: me-add-one-service
+spec:
+  type: ClusterIP
+  selector:
+    app: me-add-one
+  ports:
+    - port: 5011 
