@@ -1,3 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: me-add-two-config-file
+data:
+  endpoints.k8s.json: |
+    {
+      "me-add-one-uri": "me-add-one-service:5011"
+    }
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,6 +30,17 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 5012
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "128Mi"
+        volumeMounts:
+        - name: me-add-two-config
+          mountPath: /app/config
+      volumes:
+      - name: me-add-two-config
+        configMap:
+          name: me-add-two-config-file
 ---
 apiVersion: v1
 kind: Service

@@ -32,3 +32,15 @@ kubectl apply -f .\deployment.yaml
 
 # gets
 kubectl get pods -o wide
+
+#port-forwarding
+kubectl port-forward me-add-one-deployment-6584fd4469-jx729 5011:5011
+
+#open pods shell
+kubectl exec -it me-add-one-deployment-6584fd4469-jx729 -- /bin/sh
+
+-- linux
+read full file: cat file-name
+
+-- git
+git diff --word-diff=color
