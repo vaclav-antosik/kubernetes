@@ -44,3 +44,17 @@ read full file: cat file-name
 
 -- git
 git diff --word-diff=color
+
+- Linux k8s commands
+
+# Pods -> ConfigMap
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]} {@.metadata.name}{" "}{@.spec.volumes[*].configMap.name}{end}' | xargs -n3 | uniq
+
+# Pods -> Env.vars
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]} {@.metadata.name}{" "}{@.spec.containers[*].env[*].valueFrom.configMapKeyRef.name}{end}' | xargs -n3 | uniq
+
+# Pods -> Secret
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]} {@.metadata.name}{" "}{@.spec.volumes[*].secret.secretName}{end}' | xargs -n3 | uniq
+
+# Pods -> Secret
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]} {@.metadata.name}{" "}{@.spec.containers[*].env[*].valueFrom.secretKeyRef.name}{end}' | xargs -n3 | uniq
