@@ -35,6 +35,7 @@ kubectl get pods -o wide
 
 #port-forwarding
 kubectl port-forward me-add-one-deployment-6584fd4469-jx729 5011:5011
+kubectl port-forward svc/kiali -n istio-system 20001
 
 #open pods shell
 kubectl exec -it me-add-one-deployment-6584fd4469-jx729 -- /bin/sh
