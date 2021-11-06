@@ -45,6 +45,14 @@ read full file: cat file-name
 -- git
 git diff --word-diff=color
 
+-- helm
+helm install me-chart me-chart
+helm uninstall me-chart
+
+-- istio
+istioctl install
+kubectl label namespace default istio-injection=enabled
+
 - Linux k8s commands
 
 # Pods -> ConfigMap

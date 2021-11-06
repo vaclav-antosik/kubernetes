@@ -47,9 +47,8 @@ kind: Service
 metadata:
   name: me-add-two-service
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: me-add-two
   ports:
     - port: 5012
-      nodePort: 30012
