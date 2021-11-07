@@ -1,0 +1,14 @@
+Service Mesh Functionality
+- Traffic control
+- Resilency
+- Observability
+- Security
+- In-network application logic
+
+istioctl install
+kubectl label namespace default istio-injection=enabled
+kubectl get svc istio-ingressgateway -n istio-system -o yaml
+
+C:\Windows\System32\drivers\etc\hosts 127.0.0.1 me.sk - where me.sk is host in istio ingress gateway
+
+Invoke-WebRequest http://me.sk/math?number=1

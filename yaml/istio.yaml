@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: me-add-two-gateway
+spec:
+  selector:
+    istio: ingressgateway # use default istio controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "me.sk"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: me-add-two-virtual-service
+spec:
+  hosts:
+  - "me.sk"
+  gateways:
+  - me-add-two-gateway
+  http:
+    - route:
+      - destination:
+          host: me-add-two-service
+          port:
+            number: 5012
+      match:
+      - uri:
+          prefix: "/math"
