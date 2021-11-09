@@ -50,6 +50,10 @@ git diff --word-diff=color
 helm install me-chart me-chart
 helm uninstall me-chart
 
+-- investigations
+curl.exe -v address
+netstat -ab
+
 - Linux k8s commands
 
 # Pods -> ConfigMap
